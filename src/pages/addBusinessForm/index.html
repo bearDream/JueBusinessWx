@@ -1,0 +1,93 @@
+<view class="flex-wrp" style="flex-direction:row;">
+	<view class="weui-cells__title title">填写一下信息快速入驻蕨菜</view>
+	<form bindsubmit="formSubmit" bindreset="formReset">
+
+
+		<view class="weui-cells weui-cells_after-title">
+			<view class="weui-cell weui-cell_input">
+				<view class="weui-cell__hd">
+					<view class="weui-label">商家名</view>
+				</view>
+				<view class="weui-cell__bd">
+					<input class="weui-input" name="name" placeholder="输入你的店名"/>
+				</view>
+			</view>
+			<view class="weui-cell weui-cell_input weui-cell_vcode">
+				<view class="weui-cell__hd">
+					<view class="weui-label">掌柜电话</view>
+				</view>
+				<view class="weui-cell__bd">
+					<input class="weui-input" name="tel" placeholder="请输入11位手机号码" />
+				</view>
+			</view>
+			<view class="weui-cell weui-cell_input">
+				<view class="weui-cell__hd">
+					<view class="weui-label">位置</view>
+				</view>
+				<view class="weui-cell__bd">
+					<input class="weui-input" name="address" value="{{address}}"/>
+				</view>
+				<view class="weui-cell__ft">
+					<view class="weui-vcode-btn" bindtap="getLocation">选择位置</view>
+				</view>
+			</view>
+
+			<view class="weui-cell">
+				<div class="weui-uploader">
+					<div class="weui-uploader__hd">
+						<p class="weui-uploader__title">形象图上传</p>
+						<div class="weui-uploader__info">{{businessImgNum}}/1</div>
+					</div>
+					<div class="weui-uploader__bd" >
+						<block wx:for="{{businessImagefile}}" wx:key="*this">
+							<view class="weui-uploader__file" bindtap="previewImage" id="{{item}}">
+								<image class="weui-uploader__img" src="{{item}}" mode="aspectFill" />
+							</view>
+						</block>
+						<div class="weui-uploader__input-box" bindtap="getImage" wx:if="{{businessImage_button_show == true}}">
+							<input id="uploaderSingleInput" class="weui-uploader__input" type="file" accept="image/*" multiple />
+						</div>
+					</div>
+				</div>
+			</view>
+
+			<view class="weui-cell">
+				<div class="weui-uploader">
+					<div class="weui-uploader__hd">
+						<p class="weui-uploader__title">幻灯片上传</p>
+						<div class="weui-uploader__info">{{businessCarouselNum}}/4</div>
+					</div>
+					<div class="weui-uploader__bd">
+						<block wx:for="{{businessCarouselImagefile}}" wx:key="*this">
+							<view class="weui-uploader__file" bindtap="previewImage" id="{{item}}">
+								<image class="weui-uploader__img" src="{{item}}" mode="aspectFill" />
+							</view>
+						</block>
+						<div class="weui-uploader__input-box" bindtap="getCarouselImages" wx:if="{{businessCarouselImage_button_show == true}}">
+							<input id="uploaderInput" class="weui-uploader__input" type="file" accept="image/*" multiple />
+						</div>
+					</div>
+				</div>
+			</view>
+
+			<view class="weui-cell weui-cell_input">
+				<view class="weui-cell__bd">
+					<textarea class="weui-textarea" name="content" placeholder="用文字简短介绍您的店铺吧" style="height: 3.3em" bindinput="computeTextNum"/>
+					<view class="weui-textarea-counter">{{descTextNum}}/200</view>
+				</view>
+			</view>
+
+			<input name="latitude" value="{{latitude}}" style="display: none;"/>
+			<input name="longtitude" value="{{longtitude}}" style="display: none;"/>
+			<input name="businessImage" value="{{businessImage}}" style="display: none;"/>
+			<input name="businessCarouselImage" value="{{businessCarouselImage}}" style="display: none;"/>
+
+			<view class="weui-cell weui-cell_input weui-cell_vcode bottom">
+				<button formType="reset" class="weui-cell__bd">重置信息</button>
+				<button formType="submit" class="weui-cell__bd">入驻</button>
+			</view>
+            </view>
+
+
+	</form>
+</view>

@@ -1,0 +1,31 @@
+{
+  "pages":[
+    "pages/loading/index",
+    "pages/index/index",
+    "pages/logs/logs",
+    "pages/me/index",
+    "pages/addBusinessForm/index"
+  ],
+  "tabBar": {
+    "color": "#a9b7b7",
+    "selectedColor": "#11cd6e",
+    "borderStyle":"white",
+    "list": [{
+      "selectedIconPath": "image/home_press.png",
+      "iconPath": "image/home_normal.png",
+      "pagePath": "pages/index/index",
+      "text": "首页"
+    }, {
+      "selectedIconPath": "image/me_press.png",
+      "iconPath": "image/me_normal.png",
+      "pagePath": "pages/me/index",
+      "text": "个人中心"
+    }]
+  },
+  "window":{
+    "backgroundTextStyle":"light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "WeChat",
+    "navigationBarTextStyle":"black"
+  }
+}

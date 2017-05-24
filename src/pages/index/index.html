@@ -1,0 +1,34 @@
+<view class="section page">
+	<view class="flex-wrp" style="flex-direction:row;">
+		<view class="flex-item bc_green">
+			<label>
+				<text>是否开启取号功能：</text>
+				<switch bindchange="openTakeChange" checked="{{isTake}}"/>
+			</label>
+		</view>
+	</view>
+	<view class="flex-wrp" style="flex-direction:row;">
+		<view class="flex-item bc_green">
+			<label>
+				<text>当前号：</text>
+				<text class="currentNum">{{number}}</text>
+			</label>
+		</view>
+		<view class="flex-item bc_green">
+			<label>
+				<text>等待人数：</text>
+				<text class="waitNum">{{waitNumber}}</text>
+			</label>
+		</view>
+		<view class="flex-item bc_green">
+			<label>
+				<button type="primary" size="mini" loading="{{loading}}" plain="{{plain}}"
+						disabled="{{pass_status}}" bindtap="callNumber"> 叫号 </button>
+			</label>
+			<label>
+				<button type="primary" size="mini" loading="{{loading}}" plain="{{plain}}"
+						disabled="{{pass_status}}" bindtap="passNumber"> 过号 </button>
+			</label>
+		</view>
+	</view>
+</view>
