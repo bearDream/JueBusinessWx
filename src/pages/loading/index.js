@@ -24,7 +24,6 @@ var pageObject = {
         })
     },
 	onLoad: function () {
-		console.log('loading页面加载')
 		var that = this
         wx.showLoading({
             mask: true,

@@ -10,8 +10,8 @@ var pageObject = {
         loading: false,
         plain: false,
 		disabled: false,
-        waitNumber: 0,
-        number: 0,
+        smallWaitNumber: 0,
+        smallNumber: 0,
         isTake: false,
         pass_status: false,
         address: '',
@@ -211,7 +211,7 @@ var pageObject = {
         var that = this;
         let data = {
             businessId: wx.getStorageSync('businessInfo').businessId,
-            number: this.data.number
+            number: this.data.smallNumber
         }
         app.func.req('/takeNum/callNum', data, 'GET', function (res) {
             if (res.code != -1){
@@ -234,7 +234,7 @@ var pageObject = {
         var that = this;
         let data = {
             businessId: wx.getStorageSync('businessInfo').businessId,
-            number: this.data.number
+            number: this.data.smallNumber
         }
         app.func.req('/takeNum/passNum', data, 'GET', function (res) {
             if (res.code != -1){
@@ -254,22 +254,23 @@ var pageObject = {
         })
     },
     getBusinessInfo: function () {
-        // 获取用户信息之后，判断该用户是否注册过商家
+        // 获取商家信息和排队信息
         var that = this;
         app.func.req('/business/getUserBusiness', {}, 'GET', function (res) {
             let data = res.data;
             if (res.code != -1){
                 // 显示商家信息即可
                 wx.setStorageSync('businessInfo', data.business);
+                let smallQue = data.queue.smallQue
                 // 显示商家信息页面
                 that.setData({
-                    is_show: true,
-                    waitNumber: data.waitNumber,
-                    number: data.number,
+                    smallWaitNumber: smallQue.length,
+                    smallNumber: smallQue.length == 0 ? 0 : smallQue[0].number,
                     isTake: data.business.isTake
                 })
+                console.info("allNums: "+data.queue)
                 // 如果没有人排队，则不能点击过号和叫号按钮
-                if (data.waitNumber == 0){
+                if (data.queue.allNums == 0){
                     that.setData({
                         pass_status: true
                     })
@@ -279,9 +280,10 @@ var pageObject = {
                     })
                 }
             }else {
-                // 显示入驻商家表单页面
-                that.setData({
-                    is_show: false
+                wx.showToast({
+                    title: '系统错误 ' + res.msg,
+                    icon: 'info',
+                    duration: 2000
                 })
             }
         })
