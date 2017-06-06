@@ -2,8 +2,8 @@
  * Created by soft01 on 2017/5/24.
  */
 
-var API_URL1 = 'http://localhost:8088/api/mobile';
-var API_URL2 = 'https://www.chiprincess.cn';
+var API_URL1 = 'http://localhost:8888/api/mobile';
+var API_URL2 = 'https://wx.business.chiprincess.cn';
 
 var server = null;
 // es6 版本

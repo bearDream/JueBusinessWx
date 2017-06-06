@@ -1,34 +1,51 @@
+<import src="../toast/index.wxml" />
+<template is="showToast" data="{{showToast: showToast}}" />
 <view class="section page">
+	<view class="weui-flex">
+		<view class="weui-flex__item">
+			<view style="text-align: center">
+				<image style="width: 150px; height: 100px; background-color: #eeeeee;" mode="aspectFit" src="{{businessImage}}"></image>
+			</view>
+		</view>
+		<view class="weui-flex__item">
+			<view>
+				<text class="businessInfo">{{businessName}}</text>
+				<text>\n</text>
+				<text class="businessInfo">地址: <text style="font-size: 9pt">{{address}}</text></text>
+			</view>
+		</view>
+	</view>
 	<view class="flex-wrp" style="flex-direction:row;">
-		<view class="flex-item bc_green">
+		<view class="flex-item bc_green" style="text-align: center">
 			<label>
-				<text>是否开启取号功能：</text>
+				<text style="font-size: 13pt">是否开启取号功能：</text>
 				<switch bindchange="openTakeChange" checked="{{isTake}}"/>
 			</label>
 		</view>
 	</view>
 	<view class="flex-wrp" style="flex-direction:row;">
-		<view class="flex-item bc_green">
+		<view class="flex-item bc_green" style="text-align: center">
 			<label>
 				<text>小桌当前号：</text>
 				<text class="currentNum">{{smallNumber}}</text>
 			</label>
 		</view>
-		<view class="flex-item bc_green">
+		<view class="flex-item bc_green" style="text-align: center">
 			<label>
 				<text>小桌等待人数：</text>
 				<text class="waitNum">{{smallWaitNumber}}</text>
 			</label>
 		</view>
-		<view class="flex-item bc_green">
+		<view class="flex-item bc_green" style="text-align: center">
 			<label>
-				<button type="primary" size="mini" loading="{{loading}}" plain="{{plain}}"
+				<button type="primary" size="mini" loading="{{loading}}" plain="{{plain}}" style="margin-right: 10px;"
 						disabled="{{pass_status}}" bindtap="callNumber"> 叫号 </button>
 			</label>
 			<label>
-				<button type="primary" size="mini" loading="{{loading}}" plain="{{plain}}"
+				<button type="warn" size="mini" loading="{{loading}}" plain="{{plain}}" style="margin-left: 10px;"
 						disabled="{{pass_status}}" bindtap="passNumber"> 过号 </button>
 			</label>
 		</view>
+		<button class="weui-btn" loading="{{refreshLoading}}" bindtap="refreshClick" type="primary">刷新状态</button>
 	</view>
 </view>

@@ -8,7 +8,7 @@ const DEV = 'DEV'
 const PROD = 'PROD'
 
 // 接口地址
-const API_URL = 'http://171590mx26.51mypc.cn/api'
+const API_URL = 'https://wx.business.chiprincess.cn/api'
 
 // 分页大小
 const PAGE_SIZE = 10

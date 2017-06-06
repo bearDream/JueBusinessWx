@@ -2,8 +2,8 @@
  * Created by soft01 on 2017/5/24.
  */
 
-var API_URL1 = 'http://localhost:8088/api/mobile';
-var API_URL2 = 'https://www.chiprincess.cn';
+var API_URL1 = 'http://localhost:8888/api/mobile';
+var API_URL2 = 'https://wx.business.chiprincess.cn';
 
 var server = null;
 // es6 版本
@@ -15,7 +15,7 @@ if(NODE_ENV === 'dev') {
 
 console.info(server)
 
-function req(url,data,method,cb){
+function req(url,data,method,cb,fail){
     wx.showLoading({
         mask: true,
         title: '小蕨努力加载中...'
@@ -29,9 +29,9 @@ function req(url,data,method,cb){
             wx.hideLoading();
             return typeof cb == "function" && cb(res.data)
         },
-        fail: function(){
+        fail: function(data){
             wx.hideLoading();
-            return typeof cb == "function" && cb(false)
+            return typeof fail == "function" && fail(data)
         }
     })
 }

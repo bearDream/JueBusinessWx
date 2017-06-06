@@ -1,6 +1,9 @@
 page {
   background: #f7f7f7;
 }
+text{
+  font-family: 微软雅黑;
+}
 .img {
   display: flex;
   flex-direction: column;
@@ -35,12 +38,34 @@ page {
   color: #aaa;
   display: block;
 }
-
+.businessInfo{
+  font-family: 微软雅黑;
+  font-size: 11pt;
+}
 .title{
   font-size: 14pt;
   text-align: center;
 }
-
 .bottom{
   padding-left: 0px;
+}
+.weui-flex {
+  height: 120px;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+}
+.weui-flex__item {
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+  flex: 1;
+}
+.placeholder{
+  margin: 5px;
+  padding: 0 10px;
+  text-align: center;
+  background-color: #EBEBEB;
+  height: 2.3em;
+  line-height: 2.3em;
+  color: #cfcfcf;
 }

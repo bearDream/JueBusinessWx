@@ -1,5 +1,5 @@
 var API_URL1 = 'http://localhost:8088/api';
-var API_URL2 = 'https://im.server2.url';
+var API_URL2 = 'https://wx.business.chiprincess.cn';
 
 var server = null;
 // es6 版本

@@ -1,5 +1,6 @@
 //index.js
 //获取应用实例
+var toast = require('../toast/index')
 var util = require('../../utils/util');
 var app = getApp()
 var types = ['default', 'primary', 'warn']
@@ -10,26 +11,35 @@ var pageObject = {
         // 获取用户信息之后，判断该用户是否注册过商家
         var that = this;
         app.func.req('/business/getUserBusiness', {}, 'GET', function (res) {
-            if (res.code != -1){
-                // 该用户已经开通了商家，则将页面跳转到index/index
-                wx.reLaunch({
-                    url: '../index/index'
+            console.info(res)
+            if (res === false) {
+                toast.showToast({
+                    title: '网络连接失败',
+                    icon: '../../image/error.png',
+                    duration: 3000
                 })
             }else {
-                // 该用户还没有开通商家，则将页面跳转到addBusinessForm/index
-                wx.reLaunch({
-                    url: '../addBusinessForm/index'
-                })
+                if (res.code != -1){
+                    // 该用户已经开通了商家，则将页面跳转到index/index
+                    wx.reLaunch({
+                        url: '../index/index'
+                    })
+                }else {
+                    // 该用户还没有开通商家，则将页面跳转到addBusinessForm/index
+                    wx.reLaunch({
+                        url: '../addBusinessForm/index'
+                    })
+                }
             }
+        }, function (res) {
+            console.info('.....出错啦')
+            console.info(res)
         })
     },
 	onLoad: function () {
 		var that = this
-        wx.showLoading({
-            mask: true,
-            title: '小蕨努力加载中...'
-        })
-		app.getUserInfo(function(userInfo){
+        console.info(toast)
+        app.getUserInfo(function(userInfo){
 			//更新数据
             console.info(userInfo)
 			that.setData({

@@ -1,12 +1,14 @@
 //index.js
 //获取应用实例
 var util = require('../../utils/util');
+var toast = require('../toast/index')
 var app = getApp()
 var types = ['default', 'primary', 'warn']
 var pageObject = {
 	data: {
 		motto: 'Hello World',
 		userInfo: {},
+        refreshLoading: false,
         loading: false,
         plain: false,
 		disabled: false,
@@ -18,6 +20,8 @@ var pageObject = {
         longtitude: '',
         latitude: '',
         descTextNum: 0,
+        businessName: '',
+        address: '',
         businessImage: '',
         businessImgNum: 0,
         businessCarouselNum: 0,
@@ -266,7 +270,10 @@ var pageObject = {
                 that.setData({
                     smallWaitNumber: smallQue.length,
                     smallNumber: smallQue.length == 0 ? 0 : smallQue[0].number,
-                    isTake: data.business.isTake
+                    isTake: data.business.isTake,
+                    businessImage: data.business.businessImage,
+                    businessName: data.business.name,
+                    address: data.business.address
                 })
                 console.info("allNums: "+data.queue)
                 // 如果没有人排队，则不能点击过号和叫号按钮
@@ -280,12 +287,13 @@ var pageObject = {
                     })
                 }
             }else {
-                wx.showToast({
-                    title: '系统错误 ' + res.msg,
-                    icon: 'info',
-                    duration: 2000
+                toast.showToast({
+                    title: '系统错误' + res.mesg,
+                    icon: '../../image/error.png',
+                    duration: 3000
                 })
             }
+            that.setData({refreshLoading: false})
         })
     },
     computeTextNum: function (e) {
@@ -301,6 +309,10 @@ var pageObject = {
         this.setData({
             descTextNum: len
         })
+    },
+    refreshClick: function () {
+        this.setData({refreshLoading: true})
+        this.getBusinessInfo()
     },
 	onLoad: function () {
 		console.log('首页页面加载')
