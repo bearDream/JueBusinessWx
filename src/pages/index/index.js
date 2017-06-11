@@ -9,13 +9,21 @@ var pageObject = {
 		motto: 'Hello World',
 		userInfo: {},
         refreshLoading: false,
-        loading: false,
         plain: false,
 		disabled: false,
         smallWaitNumber: 0,
         smallNumber: 0,
-        isTake: false,
+        loading: false,
         pass_status: false,
+        mediumWaitNumber: 0,
+        mediumNumber: 0,
+        Mediumloading: false,
+        Medium_pass_status: false,
+        bigWaitNumber: 0,
+        bigNumber: 0,
+        bigloading: false,
+        big_pass_status: false,
+        isTake: false,
         address: '',
         longtitude: '',
         latitude: '',
@@ -51,7 +59,7 @@ var pageObject = {
                     fail: function (e) {
                         console.info(e)
                         console.info('fail')
-                        wx.showToast({
+                        toast.showToast({
                             title: '选择位置失败',
                             icon: 'cancel',
                             duration: 2000
@@ -73,7 +81,7 @@ var pageObject = {
                         }
                     },
                     cancel: function (e) {
-                        wx.showToast({
+                        toast.showToast({
                             title: '已取消选择位置',
                             icon: 'cancel',
                             duration: 2000
@@ -174,11 +182,11 @@ var pageObject = {
                     duration: 2000
                 })
             }else {
-                wx.showToast({
-                    title: '开通失败，原因：'+res.msg,
-                    icon: 'warn',
-                    duration: 2000
-                })
+                toast.showToast({
+                    title: '开通失败，原因：' + res.msg,
+                    icon: '../../image/error.png',
+                    duration: 3000,
+                });
             }
         })
 
@@ -257,27 +265,99 @@ var pageObject = {
             that.getBusinessInfo();
         })
     },
+    callNumberMedium () {
+        // 发送叫号请求
+        var that = this;
+        let data = {
+            businessId: wx.getStorageSync('businessInfo').businessId,
+            number: this.data.mediumNumber
+        }
+        app.func.req('/takeNum/callNum', data, 'GET', function (res) {
+            if (res.code != -1){
+                wx.showToast({
+                    title: '叫号成功',
+                    icon: 'success',
+                    duration: 2000
+                })
+            }else {
+                toast.showToast({
+                    title: '叫号失败，原因：'+res.msg,
+                    icon: 'warn',
+                    duration: 2000
+                })
+            }
+        })
+    },
+    passNumberMedium () {
+        // 发送过号请求
+        var that = this;
+        let data = {
+            businessId: wx.getStorageSync('businessInfo').businessId,
+            number: this.data.mediumNumber
+        }
+        app.func.req('/takeNum/passNum', data, 'GET', function (res) {
+            if (res.code != -1){
+                wx.showToast({
+                    title: '过号成功',
+                    icon: 'success',
+                    duration: 2000
+                })
+            }else {
+                toast.showToast({
+                    title: '过号失败，原因：'+res.msg,
+                    icon: 'warn',
+                    duration: 2000
+                })
+            }
+            that.getBusinessInfo();
+        })
+    },
     getBusinessInfo: function () {
         // 获取商家信息和排队信息
         var that = this;
         app.func.req('/business/getUserBusiness', {}, 'GET', function (res) {
             let data = res.data;
+            console.error(res)
             if (res.code != -1){
                 // 显示商家信息即可
                 wx.setStorageSync('businessInfo', data.business);
                 let smallQue = data.queue.smallQue
-                // 显示商家信息页面
+                let mediumQue = data.queue.mediumQue
+                let bigQue = data.queue.bigQue
+                // 显示商家信息页面    bigQue
                 that.setData({
                     smallWaitNumber: smallQue.length,
                     smallNumber: smallQue.length == 0 ? 0 : smallQue[0].number,
+                    mediumWaitNumber: mediumQue.length,
+                    mediumNumber: mediumQue.length == 0 ? 0 : mediumQue[0].number,
+                    bigWaitNumber: bigQue.length,
+                    bigNumber: bigQue.length == 0 ? 0 : bigQue[0].number,
                     isTake: data.business.isTake,
                     businessImage: data.business.businessImage,
                     businessName: data.business.name,
                     address: data.business.address
                 })
-                console.info("allNums: "+data.queue)
+                console.info("smallQue: "+data.queue.smallQue.length)
                 // 如果没有人排队，则不能点击过号和叫号按钮
-                if (data.queue.allNums == 0){
+                if (data.queue.bigQue.length == 0){
+                    that.setData({
+                        big_pass_status: true
+                    })
+                }else {
+                    that.setData({
+                        big_pass_status: false
+                    })
+                }
+                if (data.queue.mediumQue.length == 0){
+                    that.setData({
+                        Medium_pass_status: true
+                    })
+                }else {
+                    that.setData({
+                        Medium_pass_status: false
+                    })
+                }
+                if (data.queue.smallQue.length == 0){
                     that.setData({
                         pass_status: true
                     })
@@ -321,16 +401,15 @@ var pageObject = {
             mask: true,
             title: '小蕨努力加载中...'
         })
-		app.getUserInfo(function(userInfo){
-			//更新数据
-            console.info(userInfo)
-			that.setData({
-				userInfo:userInfo
-			})
-            console.info(wx.getStorageSync('businessInfo'))
-            that.getBusinessInfo();
-            wx.hideLoading();
-        })
+        that.getBusinessInfo();
+        // app.getUserInfo(function(userInfo){
+			// //更新数据
+        //     console.info(userInfo)
+			// that.setData({
+			// 	userInfo:userInfo
+			// })
+        //     wx.hideLoading();
+        // })
 	}
 }
 Page(pageObject)

@@ -3,7 +3,7 @@
  */
 
 var API_URL1 = 'http://localhost:8888/api/mobile';
-var API_URL2 = 'https://wx.business.chiprincess.cn';
+var API_URL2 = 'https://wx.business.chiprincess.cn/api/mobile';
 
 var server = null;
 // es6 版本
