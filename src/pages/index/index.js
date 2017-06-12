@@ -397,11 +397,10 @@ var pageObject = {
 	onLoad: function () {
 		console.log('首页页面加载')
 		var that = this
-        wx.showLoading({
-            mask: true,
-            title: '小蕨努力加载中...'
-        })
-        app.isLogin()
+        // wx.showLoading({
+        //     mask: true,
+        //     title: '小蕨努力加载中...'
+        // })
         this.getBusinessInfo()
         wx.hideLoading()
 	}

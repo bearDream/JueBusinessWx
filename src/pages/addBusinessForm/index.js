@@ -259,21 +259,19 @@ var pageObject = {
 	onLoad: function () {
 		console.log('onLoad')
 		var that = this
-        wx.showLoading({
-            mask: true,
-            title: '小蕨努力加载中...'
-        })
+        // wx.showLoading({
+        //     mask: true,
+        //     title: '小蕨努力加载中...'
+        // })
 		app.getUserInfo(function(userInfo){
 			//更新数据
-            console.info(userInfo)
 			that.setData({
 				userInfo:userInfo
 			})
-            console.info(wx.getStorageSync('businessInfo'))
             that.getBusinessInfo();
-            wx.hideLoading();
         })
-	}
+        wx.hideLoading();
+    }
 }
 Page(pageObject)
 /*

@@ -17,11 +17,11 @@ console.info(server)
 
 function req(url,data,method,cb,fail){
     // 刚启动的时候取出存储起来的  JSESSIONID
-    wx.showLoading({
-        mask: true,
-        title: '小蕨努力加载中...'
-    })
-    if (method == 'GET'){
+    // wx.showLoading({
+    //     mask: true,
+    //     title: '小蕨努力加载中...'
+    // })
+    if (method == 'GET' || method == 'PUT'){
         const thirdSession = wx.getStorageSync('thirdSession')
         var session_id = wx.getStorageSync('JSESSIONID');//本地取存储的sessionID
         if (session_id != "" && session_id != null) {
@@ -73,6 +73,7 @@ function req(url,data,method,cb,fail){
             }
         })
     }
+    // wx.hideLoading();
 }
 
 

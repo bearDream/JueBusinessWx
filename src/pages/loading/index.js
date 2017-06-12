@@ -44,44 +44,30 @@ var pageObject = {
                     that.setData({
                         userInfo: userInfo
                     })
-                    console.error(that.data.userInfo)
                     if (res.code == 2) {
                         // 用户未登录，需要注册
-                        console.info(res.data)
                         var userinfo = that.data.userInfo
                         userinfo['openid'] = res.data
-                        console.info(userinfo)
                         app.func.req('/mini/register', userinfo, 'POST', res => {
                             console.info(res)
+                            app.login(res => {
+                                app.getUserInfo(userInfo => {
+                                    that.setData({
+                                        userInfo: userInfo
+                                    })
+                                    that.getBusinessInfo();
+                                })
+                            })
                         })
+                    }else {
+                        that.getBusinessInfo();
                     }
-                    wx.hideLoading();
-                    that.getBusinessInfo();
                 })
-                that.getBusinessInfo();
             })
         }, function (userInfo) {
             console.info(userInfo)
         })
-        // app.getUserInfo(function(userInfo){
-			// //更新数据
-        //     console.info(userInfo)
-			// that.setData({
-			// 	userInfo: userInfo
-			// })
-        //     console.info(wx.getStorageSync('businessInfo'))
-        //     wx.hideLoading();
-        //     that.getBusinessInfo();
-        // })
+        wx.hideLoading();
 	}
 }
 Page(pageObject)
-/*
-// 请别再ES5模式下写ES6代码, uglify压缩不支持
-function pro(msg) {
-	return new Promise((resolve,reject) => {
-		setTimeout(() => {
-			resolve(msg)
-		},1000)
-	})
-}*/

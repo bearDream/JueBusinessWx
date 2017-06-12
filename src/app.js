@@ -59,6 +59,7 @@ App({
   isLogin(cb1, cb2) {
       const that = this
       let thirdSession = wx.getStorageSync('thirdSession')
+      console.info(thirdSession)
       if (thirdSession) {
           // 将该session发送到后台判断是否登录
           http.req('/mini/isLogin', {thirdSession: thirdSession}, 'GET', res => {
@@ -66,6 +67,7 @@ App({
               if (res.code === -1) {
                   // 未登录，应该调用登录函数
                   typeof cb1 === 'function' && cb1();
+                  return
               } else {
                 // 获取用户信息
                 wx.getUserInfo({
@@ -73,11 +75,13 @@ App({
                         console.info(res)
                         that.globalData.userInfo = res.userInfo;
                         typeof cb2 === 'function' && cb2(that.globalData.userInfo);
+                        return
                     },
                 });
               }
           })
       }
+      // typeof cb1 === 'function' && cb1();
   },
   globalData: {
     userInfo: null,
