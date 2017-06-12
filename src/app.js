@@ -59,8 +59,8 @@ App({
   isLogin(cb1, cb2) {
       const that = this
       let thirdSession = wx.getStorageSync('thirdSession')
-      console.info(thirdSession)
       if (thirdSession) {
+          console.info(thirdSession)
           // 将该session发送到后台判断是否登录
           http.req('/mini/isLogin', {thirdSession: thirdSession}, 'GET', res => {
               // 将session写入storage
@@ -80,8 +80,9 @@ App({
                 });
               }
           })
+      }else {
+          typeof cb1 === 'function' && cb1();
       }
-      // typeof cb1 === 'function' && cb1();
   },
   globalData: {
     userInfo: null,

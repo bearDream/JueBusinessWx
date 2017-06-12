@@ -36,6 +36,7 @@ function req(url,data,method,cb,fail){
             header: header,
             success: function(res){
                 if (session_id == "" || session_id == null) {
+                    console.info(res.header)
                     wx.setStorageSync('JSESSIONID', res.header['Set-Cookie'].split(';')[0]) //如果本地没有就说明第一次请求 把返回的session id 存入本地
                 }
                 wx.hideLoading();

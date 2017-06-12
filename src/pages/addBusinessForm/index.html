@@ -45,7 +45,8 @@
 							</view>
 						</block>
 						<div class="weui-uploader__input-box" bindtap="getImage" wx:if="{{businessImage_button_show == true}}">
-							<input id="uploaderSingleInput" class="weui-uploader__input" type="file" accept="image/*" multiple />
+							<button id="uploaderSingleInput" type="primary"  class="weui-uploader__input"></button>
+							<!--<input  class="weui-uploader__input" type="file" accept="image/*" multiple />-->
 						</div>
 					</div>
 				</div>
@@ -64,7 +65,8 @@
 							</view>
 						</block>
 						<div class="weui-uploader__input-box" bindtap="getCarouselImages" wx:if="{{businessCarouselImage_button_show == true}}">
-							<input id="uploaderInput" class="weui-uploader__input" type="file" accept="image/*" multiple />
+							<button id="uploaderInput" type="primary"  class="weui-uploader__input"></button>
+							<!--<input id="" class="weui-uploader__input" type="file" accept="image/*" multiple />-->
 						</div>
 					</div>
 				</div>
