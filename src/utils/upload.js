@@ -20,10 +20,18 @@ function upload(tempFilePaths,type,cb,err){
         mask: true,
         title: '小薇努力上传中...'
     })
+    const thirdSession = wx.getStorageSync('thirdSession')
+    var session_id = wx.getStorageSync('JSESSIONID');//本地取存储的sessionID
+    if (session_id != "" && session_id != null) {
+        var header = {'Cookie': session_id, 'thirdSession': thirdSession }
+    } else {
+        var header = {'thirdSession': thirdSession }
+    }
     wx.uploadFile({
         url: server + "/upload/singleUpload", //仅为示例，非真实的接口地址
         filePath: tempFilePaths,
         name: 'file',
+        header: header,
         formData:{
             "type": type
         },

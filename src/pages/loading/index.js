@@ -6,6 +6,7 @@ var app = getApp()
 var types = ['default', 'primary', 'warn']
 var pageObject = {
 	data: {
+        userInfo: {}
 	},
     getBusinessInfo: function () {
         // 获取用户信息之后，判断该用户是否注册过商家
@@ -38,17 +39,42 @@ var pageObject = {
     },
 	onLoad: function () {
 		var that = this
-        console.info(toast)
-        app.getUserInfo(function(userInfo){
-			//更新数据
+        app.isLogin(function () {
+            app.login(function (res) {
+                var res = res
+                app.getUserInfo(function(userInfo){
+                    that.setData({
+                        userInfo: userInfo
+                    })
+                    console.error(that.data.userInfo)
+                    if (res.code == 2) {
+                        // 用户未登录，需要注册
+                        console.info(res.data)
+                        var userinfo = that.data.userInfo
+                        userinfo['openid'] = res.data
+                        console.info(userinfo)
+                        app.func.req('/mini/register', userinfo, 'POST', res => {
+                            console.info(res)
+                        })
+                    }
+                    wx.hideLoading();
+                    that.getBusinessInfo();
+                })
+                that.getBusinessInfo();
+            })
+        }, function (userInfo) {
             console.info(userInfo)
-			that.setData({
-				userInfo: userInfo
-			})
-            console.info(wx.getStorageSync('businessInfo'))
-            wx.hideLoading();
-            that.getBusinessInfo();
         })
+        // app.getUserInfo(function(userInfo){
+			// //更新数据
+        //     console.info(userInfo)
+			// that.setData({
+			// 	userInfo: userInfo
+			// })
+        //     console.info(wx.getStorageSync('businessInfo'))
+        //     wx.hideLoading();
+        //     that.getBusinessInfo();
+        // })
 	}
 }
 Page(pageObject)

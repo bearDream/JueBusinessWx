@@ -321,16 +321,9 @@ var pageObject = {
             mask: true,
             title: '小蕨努力加载中...'
         })
-		app.getUserInfo(function(userInfo){
-			//更新数据
-            console.info(userInfo)
-			that.setData({
-				userInfo:userInfo
-			})
-            console.info(wx.getStorageSync('businessInfo'))
-            that.getBusinessInfo();
-            wx.hideLoading();
-        })
+        app.isLogin()
+        this.getBusinessInfo()
+        wx.hideLoading()
 	}
 }
 Page(pageObject)

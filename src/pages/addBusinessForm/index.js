@@ -182,7 +182,8 @@ var pageObject = {
     },
     formSubmit: function(e) {
         // console.log('form发生了submit事件，携带数据为：', e.detail.value)
-		let data = JSON.stringify(e.detail.value)
+		let data = e.detail.value
+        console.info(data)
         var that = this;
         app.func.req('/business', data, 'POST', function (res) {
             console.info('.....................')
@@ -193,7 +194,9 @@ var pageObject = {
                     icon: 'success',
                     duration: 2000
                 })
-                that.getBusinessInfo();
+                wx.reLaunch({
+                    url: '../index/index'
+                })
             }else {
                 wx.showToast({
                     title: '入驻失败，原因：'+res.msg,
