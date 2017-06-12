@@ -1,5 +1,6 @@
 //index.js
 //获取应用实例
+const toast = require('../toast/index');
 var util = require('../../utils/util');
 console.log(util);
 var ajaxurl = require('../../utils/url');
@@ -14,12 +15,27 @@ Page({
 	},
     currentTakeTap: function (e) {
 		console.info(e)
+        toast.showToast({
+            title: '暂未开放',
+            icon: '../../image/error.png',
+            duration: 3000,
+        });
     },
     vouchersTap: function (e) {
         console.info(e)
+        toast.showToast({
+            title: '暂未开放',
+            icon: '../../image/error.png',
+            duration: 3000,
+        });
     },
     dayOrderTap: function (e) {
 		console.info(e)
+        toast.showToast({
+            title: '暂未开放',
+            icon: '../../image/error.png',
+            duration: 3000,
+        });
     },
 	//事件处理函数
 	bindViewTap: function() {
@@ -30,12 +46,13 @@ Page({
 	onLoad: function () {
 		console.log('onLoad')
 		var that = this
-        app.getUserInfo(function(userInfo){
-			that.setData({
-				userInfo:userInfo
-			})
-            wx.hideLoading();
-        })
+        app.getUserInfo((userInfo) => {
+            // 更新数据
+            console.info(userInfo);
+            that.setData({
+                userInfo,
+            });
+        });
 	}
 })
 /*

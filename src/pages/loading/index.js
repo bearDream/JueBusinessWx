@@ -8,34 +8,32 @@ var pageObject = {
 	data: {
         userInfo: {}
 	},
-    getBusinessInfo: function () {
+    getBusinessInfo() {
         // 获取用户信息之后，判断该用户是否注册过商家
-        var that = this;
-        app.func.req('/business/getUserBusiness', {}, 'GET', function (res) {
+        const that = this;
+        app.func.req('/business/getUserBusiness', {}, 'GET', res => {
             console.info(res)
             if (res === false) {
                 toast.showToast({
                     title: '网络连接失败',
                     icon: '../../image/error.png',
-                    duration: 3000
-                })
-            }else {
-                if (res.code != -1){
+                    duration: 3000,
+                });
+            } else if (res.code != -1) {
                     // 该用户已经开通了商家，则将页面跳转到index/index
-                    wx.reLaunch({
-                        url: '../index/index'
-                    })
-                }else {
+                    wx.switchTab({
+                        url: '../index/index',
+                    });
+                } else {
                     // 该用户还没有开通商家，则将页面跳转到addBusinessForm/index
-                    wx.reLaunch({
-                        url: '../addBusinessForm/index'
-                    })
+                    wx.redirectTo({
+                        url: '../addBusinessForm/index',
+                    });
                 }
-            }
-        }, function (res) {
-            console.info('.....出错啦')
-            console.info(res)
-        })
+        }, res => {
+            console.info('.....出错啦');
+            console.info(res);
+        });
     },
 	onLoad: function () {
 		var that = this

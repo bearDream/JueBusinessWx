@@ -23,6 +23,7 @@
 			</label>
 		</view>
 	</view>
+	<!-- 小桌 -->
 	<view class="flex-wrp" style="flex-direction:row;">
 		<view class="flex-item bc_green" style="text-align: center">
 			<label>
@@ -46,6 +47,56 @@
 						disabled="{{pass_status}}" bindtap="passNumber"> 过号 </button>
 			</label>
 		</view>
-		<button class="weui-btn" loading="{{refreshLoading}}" bindtap="refreshClick" type="primary">刷新状态</button>
 	</view>
+	<!-- 中桌 -->
+	<view class="flex-wrp" style="flex-direction:row;">
+		<view class="flex-item bc_green" style="text-align: center">
+			<label>
+				<text>中桌当前号：</text>
+				<text class="currentNum">{{mediumNumber}}</text>
+			</label>
+		</view>
+		<view class="flex-item bc_green" style="text-align: center">
+			<label>
+				<text>中桌等待人数：</text>
+				<text class="waitNum">{{mediumWaitNumber}}</text>
+			</label>
+		</view>
+		<view class="flex-item bc_green" style="text-align: center">
+			<label>
+				<button type="primary" size="mini" loading="{{Mediumloading}}" plain="{{plain}}" style="margin-right: 10px;"
+						disabled="{{Medium_pass_status}}" bindtap="callNumberMedium"> 叫号 </button>
+			</label>
+			<label>
+				<button type="warn" size="mini" loading="{{Mediumloading}}" plain="{{plain}}" style="margin-left: 10px;"
+						disabled="{{Medium_pass_status}}" bindtap="passNumberMedium"> 过号 </button>
+			</label>
+		</view>
+	</view>
+	<!-- 大桌 -->
+	<view class="flex-wrp" style="flex-direction:row;">
+		<view class="flex-item bc_green" style="text-align: center">
+			<label>
+				<text>大桌当前号：</text>
+				<text class="currentNum">{{bigNumber}}</text>
+			</label>
+		</view>
+		<view class="flex-item bc_green" style="text-align: center">
+			<label>
+				<text>大桌等待人数：</text>
+				<text class="waitNum">{{bigWaitNumber}}</text>
+			</label>
+		</view>
+		<view class="flex-item bc_green" style="text-align: center">
+			<label>
+				<button type="primary" size="mini" loading="{{bigloading}}" plain="{{plain}}" style="margin-right: 10px;"
+						disabled="{{big_pass_status}}" bindtap="callNumberbig"> 叫号 </button>
+			</label>
+			<label>
+				<button type="warn" size="mini" loading="{{loading}}" plain="{{plain}}" style="margin-left: 10px;"
+						disabled="{{big_pass_status}}" bindtap="passNumberbig"> 过号 </button>
+			</label>
+		</view>
+	</view>
+	<button class="weui-btn" loading="{{refreshLoading}}" bindtap="refreshClick" type="primary">刷新状态</button>
 </view>
