@@ -9,6 +9,7 @@ var pageObject = {
 		motto: 'Hello World',
 		userInfo: {},
         refreshLoading: false,
+        refreshScanLoading: false,
         plain: false,
 		disabled: false,
         smallWaitNumber: 0,
@@ -394,9 +395,42 @@ var pageObject = {
         this.setData({refreshLoading: true})
         this.getBusinessInfo()
     },
+    scanClick: function () {
+        var that = this
+        wx.scanCode({
+            success: (res) => {
+                console.log(res)
+                if (res.errMsg == 'scanCode:ok') {
+                    that.checkOrder(res.result)
+                }
+            }
+        })
+    },
+    checkOrder: function (orderId) {
+      // 将订单号发送至后台，修改为以使用状态
+        let data = {
+            orderId: orderId
+        }
+        var that = this
+        app.func.req('/order/checked', data, 'GET', function (res) {
+            if (res.code != -1){
+                wx.showToast({
+                    title: '验证成功',
+                    icon: 'success',
+                    duration: 2000
+                })
+            }else {
+                toast.showToast({
+                    title: '验证失败，原因：'+res.msg,
+                    icon: 'warn',
+                    duration: 2000
+                })
+            }
+            that.getBusinessInfo();
+        })
+    },
 	onLoad: function () {
 		console.log('首页页面加载')
-		var that = this
         // wx.showLoading({
         //     mask: true,
         //     title: '小蕨努力加载中...'

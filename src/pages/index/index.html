@@ -98,5 +98,12 @@
 			</label>
 		</view>
 	</view>
-	<button class="weui-btn" loading="{{refreshLoading}}" bindtap="refreshClick" type="primary">刷新状态</button>
+	<view  style="width: 100%;text-align: center;">
+		<view style="display: inline;margin-right: 5px;" >
+			<button style="padding: 10px 10px 10px 10px ;display: inline;" class="weui-btn" loading="{{refreshScanLoading}}" bindtap="scanClick" type="primary">扫码验证</button>
+		</view>
+		<view style="display: inline;margin-left: 5px;" >
+			<button style="padding: 10px 10px 10px 10px ;display: inline;" class="weui-btn" loading="{{refreshLoading}}" bindtap="refreshClick" type="primary">刷新状态</button>
+		</view>
+	</view>
 </view>
